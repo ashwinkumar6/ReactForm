@@ -2,34 +2,54 @@
     margin-top: 10px;
 } */
 
-/* .login-form {
+.form-style {
     max-width: 500px;
-  } */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 100px;
+}
 
+.button-style {
+    min-width: 500px;
+}
 
+.ant-cascader-menu:only-child {
+    min-width: 500px;
+    height: 140px;
+}
 
-  .ant-layout-footer {
+.ant-form-item label {
+    font-weight: bold;
+}
+
+.ant-layout-footer {
     background: #7dbcea;
     color: #fff;
-  }
-  .ant-layout-footer {
+}
+
+.ant-layout-footer {
     line-height: 1.5;
-  }
-  .ant-layout-sider {
+    min-height: 70px;
+}
+
+.ant-layout-sider {
     background: #3ba0e9;
     color: #fff;
     line-height: 120px;
-  }
-  .ant-layout-content {
-    background: rgba(16, 142, 233, 1);
-    color: #fff;
+}
+
+.ant-layout-content {
+    background: #fff;
+    color: #000;
     min-height: 120px;
     line-height: 120px;
-  }
-  > .code-box-demo > div > .ant-layout {
+}
+
+>.code-box-demo>div>.ant-layout {
     margin-bottom: 48px;
-  }
-  > .code-box-demo > div > .ant-layout:last-child {
+}
+
+>.code-box-demo>div>.ant-layout:last-child {
     margin: 0;
-  }
-    
+}

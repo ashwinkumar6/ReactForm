@@ -38,3 +38,10 @@
 //         direct:true 
 //     }
 // }
+
+export const AnalyticalMethodTypes = {
+    API: 'API',
+    CleaningAgent: 'Cleaning Agent',
+    Bioburden: 'Bioburden',
+    Endotoxin: 'Endotoxin'
+}

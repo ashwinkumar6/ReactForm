@@ -1,11 +1,11 @@
 import { combineReducers, createStore, applyMiddleware } from "redux";
 import logger from 'redux-logger';
 import useReducer from "./reducers/userReducer";
-import tweetsReducer from "./reducers/tweetsReducer";
+import analyticalMethodReducer from "./reducers/analyticalMethodReducer";
 
 const reducers = combineReducers ({
-    user: useReducer,
-    tweets : tweetsReducer
+    useReducer,
+    analyticalMethodReducer
 })
 
 const store = createStore(reducers, applyMiddleware(logger));
