@@ -14,6 +14,10 @@
     min-width: 500px;
 }
 
+.item-spacing {
+    margin-top: 15px;
+}
+
 .ant-cascader-menu:only-child {
     min-width: 500px;
     height: 140px;

@@ -1,3 +1,6 @@
+// Code cleanup
+// Delete this file
+
 import { Button, Icon, Form, Input } from 'antd';
 import React, { Component } from 'react';
 

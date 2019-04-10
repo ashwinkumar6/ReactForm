@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { AnalyticalMethodTypes } from '../redux/filterType';
 import ResidueTemplate1 from "./ResidueTemplate1"
+import ResidueTemplate2 from "./ResidueTemplate2"
 export default class TargetResidueItem extends Component {
 
     //   componentDidMount() {
@@ -18,7 +19,7 @@ export default class TargetResidueItem extends Component {
         return (
             <div>
                 {(currentAnalyticalMethod.targetMethod === AnalyticalMethodTypes.API) ?
-                    <ResidueTemplate1 getFieldDecorator={getFieldDecorator} />
+                    <ResidueTemplate1 getFieldDecorator={getFieldDecorator}/>
                     : null
                 }
 
@@ -29,13 +30,13 @@ export default class TargetResidueItem extends Component {
 
                 {(currentAnalyticalMethod.targetMethod === AnalyticalMethodTypes.Bioburden) ?
                     <div>
-                        component2
+                    <ResidueTemplate2 getFieldDecorator={getFieldDecorator}/>
                     </div> : null
                 }
 
                 {(currentAnalyticalMethod.targetMethod === AnalyticalMethodTypes.Endotoxin) ?
                     <div>
-                        component2.2
+                    <ResidueTemplate2 getFieldDecorator={getFieldDecorator}/>
                     </div> : null
                 }
             </div>

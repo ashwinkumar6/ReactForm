@@ -1,18 +1,22 @@
 import React, { Component } from 'react';
-import { Row, Col, Form, Input, Card, Button, Icon } from 'antd';
+import { Row, Col, Form, Input, Card, Button, Icon, Radio } from 'antd';
 import Constants from '../assets/Constants';
 import { makeId } from "../utils";
-import SwabRinseTemplate1 from './SwabRinseTemplate1';
+import SwabRinseTemplate2 from './SwabRinseTemplate2';
 
-export default class ResidueTemplate1 extends Component {
+export default class ResidueTemplate2 extends Component {
     itemId1 = null;
     itemId2 = null;
+    itemId3 = null;
+    itemId4 = null;
 
     constructor(props) {
         super(props);
 
         this.itemId1 = makeId();
         this.itemId2 = makeId();
+        this.itemId3 = makeId();
+        this.itemId4 = makeId();
 
         this.state = {
             swabButton: {
@@ -26,6 +30,9 @@ export default class ResidueTemplate1 extends Component {
                 icon: Constants.addIcon,
                 type: Constants.primaryButton,
                 isOpen: false
+            },
+            radioButton: {
+                IsTrue : true
             }
         };
     }
@@ -84,6 +91,14 @@ export default class ResidueTemplate1 extends Component {
         });
     }
 
+    radioButtonChange = (value) => {
+        let radioButton = this.state.radioButton
+        radioButton.IsTrue = value 
+        this.setState({
+            radioButton: radioButton
+        });
+    }
+
     render() {
         const {
             getFieldDecorator,
@@ -91,15 +106,40 @@ export default class ResidueTemplate1 extends Component {
 
         const {
             swabButton,
-            rinseButton
+            rinseButton,
+            radioButton
         } = this.state;
+
+        const RadioGroup = Radio.Group;
 
         return (
             <div>
-                <Row>
+
+                <Form.Item label="Method Used">
+                    {getFieldDecorator(this.itemId1, {
+                        rules: [{ required: true, message: 'this is required' }],
+                    })(
+                        <Input />
+                    )}
+                </Form.Item>
+
+                <Form.Item label="Define TNTC and TFTC limits?">
+                    {getFieldDecorator(this.itemId2, {
+                        initialValue: radioButton.IsTrue,
+                        rules: [{ required: true, message: 'this is required' }],
+                    })(
+                        <RadioGroup onChange={(e) => this.radioButtonChange(e.target.value) }>
+                            <Radio value={true}>Yes</Radio>
+                            <Radio value={false}>No</Radio>
+                        </RadioGroup>
+                    )}
+                </Form.Item>
+
+                {radioButton.IsTrue ?
+                    <Row>
                     <Col span={12}>
-                        <Form.Item label="LOD (in ppm)">
-                            {getFieldDecorator(this.itemId1, {
+                        <Form.Item label="TNTC Limit (in CFU)">
+                            {getFieldDecorator(this.itemId3, {
                                 rules: [{ validator: this.checkNumber, required: true }],
                             })(
                                 <Input type='number' />
@@ -108,8 +148,8 @@ export default class ResidueTemplate1 extends Component {
                     </Col>
 
                     <Col span={12}>
-                        <Form.Item label="LOQ (in ppm)">
-                            {getFieldDecorator(this.itemId2, {
+                        <Form.Item label="TFTC Limit (in CFU)">
+                            {getFieldDecorator(this.itemId4, {
                                 rules: [{ validator: this.checkNumber, required: true }],
                             })(
                                 <Input type="number" />
@@ -117,6 +157,8 @@ export default class ResidueTemplate1 extends Component {
                         </Form.Item>
                     </Col>
                 </Row>
+                        : null
+                    }
 
                 <Row>
                     <Button className="button-style" type={swabButton.type} ghost onClick={() => this.swabButtonClick()}>
@@ -126,7 +168,7 @@ export default class ResidueTemplate1 extends Component {
 
                     {swabButton.isOpen ?
                         <Card className="item-spacing">
-                            <SwabRinseTemplate1 getFieldDecorator={getFieldDecorator} type="swab" />
+                            <SwabRinseTemplate2 getFieldDecorator={getFieldDecorator} type="swab" />
                         </Card>
                         : null
                     }
@@ -140,7 +182,7 @@ export default class ResidueTemplate1 extends Component {
 
                     {rinseButton.isOpen ?
                         <Card className="item-spacing">
-                            <SwabRinseTemplate1 getFieldDecorator={getFieldDecorator} type="rinse" />
+                            <SwabRinseTemplate2 getFieldDecorator={getFieldDecorator} type="rinse" />
                         </Card>
                         : null
                     }
