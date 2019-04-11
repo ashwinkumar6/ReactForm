@@ -26,7 +26,14 @@ const ListViewItem = (props) => {
             })(
                 <Cascader
                     options={formatData(listItems)}
-                    onChange={(value)=>{selectTargetResidue(value[0])} } />
+                    onChange={(value) => {
+                        if (value[0] !== undefined) {
+                            selectTargetResidue(value[0])
+                        }
+                        else {
+                            selectTargetResidue("None")
+                        }
+                        }} />
             )}
         </Form.Item>
     );

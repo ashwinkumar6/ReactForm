@@ -6,6 +6,7 @@ const initialState = {
 
 const analyticalMethodReducer = (state = initialState, action) => {
     switch(action.type) {
+        case "None":
         case AnalyticalMethodTypes.API: 
         case AnalyticalMethodTypes.Bioburden: 
         case AnalyticalMethodTypes.CleaningAgent: 
