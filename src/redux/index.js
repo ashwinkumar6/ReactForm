@@ -10,13 +10,4 @@ const reducers = combineReducers ({
 
 const store = createStore(reducers, applyMiddleware(logger));
 
-// trial
-// store.subscribe(() => {
-//     console.log("store has changed", store.getState());
-// })
-
-// store.dispatch({ type: "CHANGE_NAME", payload: {name:"ashwin", tweet:"send out a name change tweet"} })
-// store.dispatch({ type: "CHANGE_AGE", payload: {age:22, tweet:"send out a age change tweet"} })
-// store.dispatch({ type: "CHANGE_AGE", payload: {age:25, tweet:"send out a age change tweet, yes again!!"} })
-
 export default store;

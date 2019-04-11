@@ -12,11 +12,6 @@ const formatData = (data) => {
     return processData;
 }
 
-// function onChange(value) {
-//     selectTargetResidue(value);
-//     //console.log(value);
-// }
-
 const ListViewItem = (props) => {
     const {
         getFieldDecorator,

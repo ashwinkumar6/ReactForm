@@ -14,6 +14,19 @@
     min-width: 500px;
 }
 
+.mocRemoveStyle {
+    margin-top: 43px;
+    margin-left: 5px;
+}
+
+.moc-card-style {
+    background: #eeeeee;
+}
+
+.card-button-style {
+    min-width: 100%;
+}
+
 .item-spacing {
     margin-top: 15px;
 }
@@ -28,7 +41,7 @@
 }
 
 .ant-layout-footer {
-    background: #7dbcea;
+    background: #384367;
     color: #fff;
 }
 
@@ -38,7 +51,7 @@
 }
 
 .ant-layout-sider {
-    background: #3ba0e9;
+    background: #cfe7ff;
     color: #fff;
     line-height: 120px;
 }

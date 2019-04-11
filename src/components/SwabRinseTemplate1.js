@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Row, Col, Form, Input } from 'antd';
-import { makeId } from "../utils";
-
+import { makeId } from '../utils';
+import Moc from './Moc';
 export default class SwabRinseTemplate1 extends Component {
     itemId1 = null;
     itemId2 = null;
@@ -41,7 +41,6 @@ export default class SwabRinseTemplate1 extends Component {
                     )}
                 </Form.Item>
 
-
                 {type === "swab" ?
                     <Row>
                         <Col span={12}>
@@ -52,7 +51,6 @@ export default class SwabRinseTemplate1 extends Component {
                                     <Input />
                                 )}
                             </Form.Item>
-
                         </Col>
 
                         <Col span={12}>
@@ -65,7 +63,6 @@ export default class SwabRinseTemplate1 extends Component {
                             </Form.Item>
                         </Col>
                     </Row>
-
                     : null
                 }
                 <Form.Item label="Default Recovery (%)">
@@ -75,6 +72,8 @@ export default class SwabRinseTemplate1 extends Component {
                         <Input type='number' />
                     )}
                 </Form.Item>
+                
+                <Moc getFieldDecorator={getFieldDecorator}/>
             </div>
         );
     }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Row, Col, Form, Input, Radio } from 'antd';
 import { makeId } from "../utils";
+import Moc from './Moc';
 
 export default class SwabRinseTemplate1 extends Component {
     itemId1 = null;
@@ -82,6 +83,9 @@ export default class SwabRinseTemplate1 extends Component {
                         </Form.Item>
                     </Col>
                 </Row>
+
+                <Moc getFieldDecorator={getFieldDecorator}/>
+
             </div>
         );
     }
