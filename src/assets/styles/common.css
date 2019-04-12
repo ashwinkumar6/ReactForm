@@ -1,7 +1,3 @@
-/* .buttonStyle{
-    margin-top: 10px;
-} */
-
 .form-style {
     max-width: 500px;
     display: block;
@@ -14,7 +10,7 @@
     min-width: 500px;
 }
 
-.mocRemoveStyle {
+.mocButtonStyle {
     margin-top: 43px;
     margin-left: 5px;
 }
@@ -23,12 +19,26 @@
     background: #eeeeee;
 }
 
+.newMocButtonStyle {
+    margin-top: 27px;
+    margin-left: 5px;
+}
+
+.mocTextStyle {
+    font-weight: bold
+}
+
 .card-button-style {
     min-width: 100%;
 }
 
 .item-spacing {
     margin-top: 15px;
+}
+
+.horizontal-text-spacing {
+    margin-left: 5px;
+    margin-top: 2px;
 }
 
 .ant-cascader-menu:only-child {

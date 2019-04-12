@@ -2,6 +2,7 @@ const Constants = {
     addIcon: 'plus-circle',
     removeIcon: 'minus-circle',
     closeIcon: 'close',
+    checkIcon: 'check',
     primaryButton: 'primary',
     dangerButton: 'danger',
     swabButtonClosedText :'Configure Swab Sampling Parameters',

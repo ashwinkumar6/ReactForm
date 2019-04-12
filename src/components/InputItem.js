@@ -5,10 +5,11 @@ const InputItem = (props) => {
     const {
         getFieldDecorator,
         labelName,
+        labelId
     } = props;
     return (
         <Form.Item label={labelName}>
-            {getFieldDecorator(labelName, {
+            {getFieldDecorator(labelId, {
                 rules: [{ required: true, message: 'this is required' }],
             })(
                 <Input />

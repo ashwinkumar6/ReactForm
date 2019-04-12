@@ -17,21 +17,22 @@ const ListViewItem = (props) => {
         getFieldDecorator,
         labelName,
         listItems,
-        selectTargetResidue
+        listId,
+        onSelectAction
     } = props;
     return (
         <Form.Item label={labelName}>
-            {getFieldDecorator(labelName, {
+            {getFieldDecorator(listId, {
                 rules: [{ required: true, message: 'this is required' }],
             })(
                 <Cascader
                     options={formatData(listItems)}
                     onChange={(value) => {
                         if (value[0] !== undefined) {
-                            selectTargetResidue(value[0])
+                            onSelectAction(value[0])
                         }
                         else {
-                            selectTargetResidue("None")
+                            onSelectAction("None")
                         }
                         }} />
             )}

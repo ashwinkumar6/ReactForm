@@ -1,22 +1,9 @@
 import React, { Component } from 'react';
 import { Row, Col, Form, Input } from 'antd';
-import { makeId } from '../utils';
 import Moc from './Moc';
+import formItemType from "../redux/formItemType";
+
 export default class SwabRinseTemplate1 extends Component {
-    itemId1 = null;
-    itemId2 = null;
-    itemId3 = null;
-    itemId4 = null;
-
-    constructor(props) {
-        super(props);
-
-        this.itemId1 = makeId();
-        this.itemId2 = makeId();
-        this.itemId3 = makeId();
-        this.itemId4 = makeId();
-    }
-
     checkNumber = (rule, value, callback) => {
         if (value >= 0 && value <= 100) {
             callback();
@@ -30,11 +17,11 @@ export default class SwabRinseTemplate1 extends Component {
             getFieldDecorator,
             type
         } = this.props;
-    
+
         return (
             <div>
                 <Form.Item label="Method Used">
-                    {getFieldDecorator(this.itemId1, {
+                    {getFieldDecorator(`${type}${formItemType.MethodUsed}`, {
                         rules: [{ required: true, message: 'this is required' }],
                     })(
                         <Input />
@@ -43,9 +30,9 @@ export default class SwabRinseTemplate1 extends Component {
 
                 {type === "swab" ?
                     <Row>
-                        <Col span={12}>
+                        <Col span={11}>
                             <Form.Item label="Solvent Name">
-                                {getFieldDecorator(this.itemId2, {
+                                {getFieldDecorator(formItemType.SolventName, {
                                     rules: [{ required: true, message: 'this is required' }],
                                 })(
                                     <Input />
@@ -53,9 +40,11 @@ export default class SwabRinseTemplate1 extends Component {
                             </Form.Item>
                         </Col>
 
-                        <Col span={12}>
+                        <Col span={2}/>
+
+                        <Col span={11}>
                             <Form.Item label="Solvent Quantity">
-                                {getFieldDecorator(this.itemId3, {
+                                {getFieldDecorator(formItemType.SolventQuantity, {
                                     rules: [{ required: true, message: 'this is required' }],
                                 })(
                                     <Input type='number' />
@@ -66,14 +55,14 @@ export default class SwabRinseTemplate1 extends Component {
                     : null
                 }
                 <Form.Item label="Default Recovery (%)">
-                    {getFieldDecorator(this.itemId4, {
+                    {getFieldDecorator(`${type}${formItemType.DefaultRecovery}`, {
                         rules: [{ validator: this.checkNumber, required: true }],
                     })(
                         <Input type='number' />
                     )}
                 </Form.Item>
-                
-                <Moc getFieldDecorator={getFieldDecorator}/>
+
+                <Moc getFieldDecorator={getFieldDecorator} type={type} />
             </div>
         );
     }

@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { Row, Col, Form, Input, Button, Icon, Card } from 'antd';
-import { makeId } from "../utils";
+import { makeId } from '../utils';
 import Constants from '../assets/Constants';
+import ListViewItem from './ListViewItem';
+import { MocTypes } from '../redux/filterType';
+import { isItemInObj } from "../utils";
+import formItemType from '../redux/formItemType'
 
 export default class Moc extends Component {
     constructor(props) {
@@ -10,7 +14,12 @@ export default class Moc extends Component {
         this.state = {
             moc: {
                 isPresent: false,
-                data: []
+                data: [],
+                types: { ...MocTypes }
+            },
+            addNewMoc: {
+                isOpen: false,
+                text: null
             }
         }
     }
@@ -36,7 +45,7 @@ export default class Moc extends Component {
         });
     }
 
-    AddAnotherButton = () => {
+    AddAnotherMocButton = () => {
         let moc = this.state.moc;
 
         moc.data.push({
@@ -48,29 +57,91 @@ export default class Moc extends Component {
         });
     }
 
-    RemoveMocButton = (id) => {
+    RemoveAnotherMocButton = (id) => {
         let moc = this.state.moc;
         for (var i = 0; i < moc.data.length; i++) {
             if (moc.data[i].Id === id) {
-              moc.data.splice(i, 1);
+                moc.data.splice(i, 1);
             }
-          }
+        }
 
-          if(moc.data.length == 0){
-              moc.isPresent = false;
-          }
+        if (moc.data.length === 0) {
+            moc.isPresent = false;
+        }
         this.setState({
             moc: moc
         });
     }
 
+    AddNewMocButton = () => {
+        let addNewMoc = this.state.addNewMoc;
+        if (!addNewMoc.isOpen) {
+            addNewMoc.isOpen = true;
+
+            this.setState({
+                addNewMoc: addNewMoc
+            });
+        }
+    }
+
+    RemoveNewMocButton = () => {
+        let addNewMoc = this.state.addNewMoc;
+        if (addNewMoc.isOpen) {
+            addNewMoc.isOpen = false;
+            addNewMoc.text = null
+
+            this.setState({
+                addNewMoc: addNewMoc
+            });
+        }
+    }
+
+    handleNewMocItem = (value) => {
+        let addNewMoc = this.state.addNewMoc;
+        addNewMoc.text = value;
+        this.setState({
+            addNewMoc: addNewMoc
+        });
+    }
+
+    AddNewMocToListButton = (value) => {
+        let currentState = this.state;
+
+        if (value.trim()) {
+            if (isItemInObj(currentState.moc.types,value)) {
+                alert("item already present");
+                return;
+            }
+
+            currentState.addNewMoc.isOpen = false;
+            currentState.addNewMoc.text = null;
+
+            var formattedValue = value.replace(/ +/g, "");
+            currentState.moc.types = {
+                ...currentState.moc.types,
+                [formattedValue] : value 
+            }
+
+            this.setState({
+                moc: currentState.moc,
+                addNewMoc: currentState.addNewMoc
+            });
+        }
+    }
+
+    ListViewItemOnSelect = () => {
+        // To Do
+    }
+
     render() {
         const {
-            getFieldDecorator
+            getFieldDecorator,
+            type
         } = this.props;
 
         const {
-            moc
+            moc,
+            addNewMoc
         } = this.state;
 
         return (
@@ -81,22 +152,23 @@ export default class Moc extends Component {
                         Add MOC
                     </Button>
                     :
-                    <Card className="moc-card-style">
-                        {moc.data.map(i => (
-                            <Row key={makeId()}>
-                                <Col span={11}>
-                                    <Form.Item label="Select MOC">
-                                        {getFieldDecorator(`item1${i.Id}`, {
-                                            rules: [{ required: true, message: 'this is required' }],
-                                        })(
-                                            <Input />
-                                        )}
-                                    </Form.Item>
+                    <Card className="moc-card-style" bordered={false}>
+                        {moc.data.map((i, k) => (
+                            <Row key={k}>
+                                <Col span={12}>
+                                    <ListViewItem
+                                        getFieldDecorator={getFieldDecorator}
+                                        listId={`${type}${formItemType.SelectMoc}${k}`}
+                                        labelName="Select MOC"
+                                        listItems={moc.types}
+                                        onSelectAction={this.ListViewItemOnSelect} />
                                 </Col>
 
-                                <Col span={11}>
+                                <Col span={1}/>
+
+                                <Col span={7}>
                                     <Form.Item label="Recovery (%)">
-                                        {getFieldDecorator(`item2${i.Id}`, {
+                                        {getFieldDecorator(`${type}${formItemType.MocRecoveryPercent}${k}`, {
                                             rules: [{ validator: this.checkPercentage, required: true }],
                                         })(
                                             <Input type='number' />
@@ -104,19 +176,58 @@ export default class Moc extends Component {
                                     </Form.Item>
                                 </Col>
 
-                                <Col span={2}> 
-                                    <Button className="mocRemoveStyle" onClick={() => this.RemoveMocButton(i.Id)}> 
-                                        <Icon type={Constants.closeIcon} /> 
+                                <Col span={1}/>
+
+                                <Col span={3}>
+                                    <Button className="mocButtonStyle" onClick={() => this.RemoveAnotherMocButton(i.Id)}>
+                                        <Icon type={Constants.closeIcon} />
                                     </Button>
                                 </Col>
                             </Row>
                         ))}
 
-                        <Row>
-                            <Button className="card-button-style" type={Constants.primaryButton} onClick={() => this.AddAnotherButton()}>
-                                <Icon type={Constants.addIcon} />
-                                Add another or Create a new MOC
-                            </Button>
+                        {addNewMoc.isOpen ?
+                            <Row>
+                                <Col span={18}>
+                                    <h4 className="mocTextStyle">Add new MOC:</h4>
+                                    <Input value={addNewMoc.text}
+                                        onChange={({ target }) => this.handleNewMocItem(target.value)} />
+                                </Col>
+
+                                <Col span={3}>
+                                    <Button className="newMocButtonStyle" onClick={() => this.AddNewMocToListButton(addNewMoc.text)}>
+                                        <Icon type={Constants.checkIcon} />
+                                    </Button>
+                                </Col>
+
+                                <Col span={3}>
+                                    <Button className="newMocButtonStyle" onClick={() => this.RemoveNewMocButton()}>
+                                        <Icon type={Constants.closeIcon} />
+                                    </Button>
+                                </Col>
+                            </Row>
+                            : null
+                        }
+
+                        <Row className="item-spacing">
+                            <Col span={11}>
+                                <Button className="card-button-style" type={Constants.primaryButton}
+                                    onClick={() => this.AddAnotherMocButton()}>
+                                    <Icon type={Constants.addIcon} />
+                                    Add another
+                                </Button>
+                            </Col>
+
+                            <Col span={2}>
+                                <h3 className="horizontal-text-spacing">OR</h3>
+                            </Col>
+
+                            <Col span={11}>
+                                <Button className="card-button-style" type={Constants.primaryButton}
+                                    onClick={() => this.AddNewMocButton()}>
+                                    Create a new MOC
+                                </Button>
+                            </Col>
                         </Row>
 
                     </Card>

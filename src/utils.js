@@ -8,3 +8,10 @@ export function makeId() {
     return text;
   }
   
+export function isItemInObj(obj,item) {
+    for(var i in obj) {
+        if (obj[i] === item)
+        return true;
+    }
+    return false;
+}

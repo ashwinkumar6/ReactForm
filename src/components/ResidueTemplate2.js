@@ -1,22 +1,12 @@
 import React, { Component } from 'react';
 import { Row, Col, Form, Input, Card, Button, Icon, Radio } from 'antd';
 import Constants from '../assets/Constants';
-import { makeId } from "../utils";
 import SwabRinseTemplate2 from './SwabRinseTemplate2';
+import formItemType from "../redux/formItemType";
 
 export default class ResidueTemplate2 extends Component {
-    itemId1 = null;
-    itemId2 = null;
-    itemId3 = null;
-    itemId4 = null;
-
     constructor(props) {
         super(props);
-
-        this.itemId1 = makeId();
-        this.itemId2 = makeId();
-        this.itemId3 = makeId();
-        this.itemId4 = makeId();
 
         this.state = {
             swabButton: {
@@ -116,7 +106,7 @@ export default class ResidueTemplate2 extends Component {
             <div>
 
                 <Form.Item label="Method Used">
-                    {getFieldDecorator(this.itemId1, {
+                    {getFieldDecorator(formItemType.MethodUsed, {
                         rules: [{ required: true, message: 'this is required' }],
                     })(
                         <Input />
@@ -124,7 +114,7 @@ export default class ResidueTemplate2 extends Component {
                 </Form.Item>
 
                 <Form.Item label="Define TNTC and TFTC limits?">
-                    {getFieldDecorator(this.itemId2, {
+                    {getFieldDecorator(formItemType.Is_TNTC_And_TFTC_Present, {
                         initialValue: radioButton.IsTrue,
                         rules: [{ required: true, message: 'this is required' }],
                     })(
@@ -139,7 +129,7 @@ export default class ResidueTemplate2 extends Component {
                     <Row>
                     <Col span={12}>
                         <Form.Item label="TNTC Limit (in CFU)">
-                            {getFieldDecorator(this.itemId3, {
+                            {getFieldDecorator(formItemType.TNTC_Limit, {
                                 rules: [{ validator: this.checkNumber, required: true }],
                             })(
                                 <Input type='number' />
@@ -149,7 +139,7 @@ export default class ResidueTemplate2 extends Component {
 
                     <Col span={12}>
                         <Form.Item label="TFTC Limit (in CFU)">
-                            {getFieldDecorator(this.itemId4, {
+                            {getFieldDecorator(formItemType.TFTC_Limit, {
                                 rules: [{ validator: this.checkNumber, required: true }],
                             })(
                                 <Input type="number" />

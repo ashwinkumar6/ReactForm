@@ -1,18 +1,13 @@
 import React, { Component } from 'react';
 import { Row, Col, Form, Input, Card, Button, Icon } from 'antd';
 import Constants from '../assets/Constants';
-import { makeId } from "../utils";
 import SwabRinseTemplate1 from './SwabRinseTemplate1';
+import formItemType from "../redux/formItemType";
 
 export default class ResidueTemplate1 extends Component {
-    itemId1 = null;
-    itemId2 = null;
 
     constructor(props) {
         super(props);
-
-        this.itemId1 = makeId();
-        this.itemId2 = makeId();
 
         this.state = {
             swabButton: {
@@ -97,9 +92,9 @@ export default class ResidueTemplate1 extends Component {
         return (
             <div>
                 <Row>
-                    <Col span={12}>
+                    <Col span={11}>
                         <Form.Item label="LOD (in ppm)">
-                            {getFieldDecorator(this.itemId1, {
+                            {getFieldDecorator(formItemType.LOD, {
                                 rules: [{ validator: this.checkNumber, required: true }],
                             })(
                                 <Input type='number' />
@@ -107,9 +102,11 @@ export default class ResidueTemplate1 extends Component {
                         </Form.Item>
                     </Col>
 
-                    <Col span={12}>
+                    <Col span={2}/>
+
+                    <Col span={11}>
                         <Form.Item label="LOQ (in ppm)">
-                            {getFieldDecorator(this.itemId2, {
+                            {getFieldDecorator(formItemType.LOQ, {
                                 rules: [{ validator: this.checkNumber, required: true }],
                             })(
                                 <Input type="number" />
