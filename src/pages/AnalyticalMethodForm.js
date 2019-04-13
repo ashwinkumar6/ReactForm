@@ -5,6 +5,7 @@ import ListViewItem from '../components/ListViewItem'
 import { AnalyticalMethodTypes } from '../redux/filterType'
 import TargetResidueItem from "../components/TargetResidueItem"
 import { selectTargetResidue } from "../redux/dispatcher/targetResidueDispatcher"
+import { submitFormData } from "../redux/dispatcher/formDataDispatcher"
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import formItemType from "../redux/formItemType";
@@ -18,11 +19,12 @@ class AnalyticalMethodForm extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
-            console.log("err field", err);
-            console.log("values field", values);
-            //   if (!err) {
-            //     console.log('Received values of form: ', values);
-            //   }
+            if (!err) {
+                let targetResidueType = (values.TargetResidueType[0]) ? values.TargetResidueType[0] : "None";
+                this.props.submitFormData(values, targetResidueType);
+                this.props.form.resetFields();
+                this.props.selectTargetResidue("None");
+              }
         });
     }
 
@@ -78,12 +80,14 @@ const WrappedNormalLoginForm = Form.create({ name: 'AnalyticalForm' })(Analytica
 const mapStateToProps = (store) => {
     return {
         analyticalMethod: store.analyticalMethodReducer,
+        formData: store.formDataReducer,        
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({
-        selectTargetResidue
+        selectTargetResidue,
+        submitFormData
     }, dispatch);
 };
 
