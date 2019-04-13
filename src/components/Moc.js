@@ -107,8 +107,10 @@ export default class Moc extends Component {
     AddNewMocToListButton = (value) => {
         let currentState = this.state;
 
-        if (value.trim()) {
-            if (isItemInObj(currentState.moc.types,value)) {
+        if (value) {
+            if (!value.trim())
+                return;
+            if (isItemInObj(currentState.moc.types, value)) {
                 alert("item already present");
                 return;
             }
@@ -119,7 +121,7 @@ export default class Moc extends Component {
             var formattedValue = value.replace(/ +/g, "");
             currentState.moc.types = {
                 ...currentState.moc.types,
-                [formattedValue] : value 
+                [formattedValue]: value
             }
 
             this.setState({
@@ -164,7 +166,7 @@ export default class Moc extends Component {
                                         onSelectAction={this.ListViewItemOnSelect} />
                                 </Col>
 
-                                <Col span={1}/>
+                                <Col span={1} />
 
                                 <Col span={7}>
                                     <Form.Item label="Recovery (%)">
@@ -176,7 +178,7 @@ export default class Moc extends Component {
                                     </Form.Item>
                                 </Col>
 
-                                <Col span={1}/>
+                                <Col span={1} />
 
                                 <Col span={3}>
                                     <Button className="mocButtonStyle" onClick={() => this.RemoveAnotherMocButton(i.Id)}>
